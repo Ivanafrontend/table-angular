@@ -1,6 +1,7 @@
  <div class="container app">
-   <input type="text" [(ngModel)]="names" (input)="search()"/>
-   
+   <!--<form>
+    <input type="text" class="form-control" id="search" name="searchName" [(ngModel)]="model2.search" placeholder="search">
+</form>-->
   <div class="row">
     <div class="col-sm-8">
       <h1 class="text-center">
@@ -34,7 +35,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let person of persons; let i = index "><!--| paginate: { itemsPerPage: 10, currentPage: p-->
+          
+            <tr *ngFor="let person of persons | paginate: { itemsPerPage: 10, currentPage: p } let i = index">
             <td>{{person.id}}</td>
             <td>{{person.name}}</td>
             <td>{{person.address}}</td>
@@ -57,7 +59,7 @@
 
         </tbody>
       </table>
-<!--<pagination-controls (pageCurent)="p = $event"></pagination-controls>-->
+<pagination-controls (currentPage)="p = $event"></pagination-controls>
     </div>
     <!--zavrsuva tabela glavna-->
     

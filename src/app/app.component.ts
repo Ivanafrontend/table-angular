@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title: string= ' Customer Details';
   msg: string = '';
-  name: string='';
+  searchName: string = '';
   pageCurent: number = 1;
 
 persons = [
