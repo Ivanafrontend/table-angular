@@ -1,0 +1,184 @@
+ <div class="container app">
+   <input type="text" [(ngModel)]="names" (input)="search()"/>
+   
+  <div class="row">
+    <div class="col-sm-8">
+      <h1 class="text-center">
+        {{title}}
+      </h1>
+    </div>
+    <div class="col-sm-4">
+      <div class="alert alert-success alert-dismissable" *ngIf="msg">
+        <a href="#" class="close" (click)="closeAlert()">
+          &times;
+        </a>
+        {{msg}}
+      </div>
+    </div>
+  </div>
+  
+  <div class="row">
+    <!--tabela glavna-->
+    <div class="col-sm-12">
+
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>Pin Code</th>
+            <th>Country</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let person of persons; let i = index "><!--| paginate: { itemsPerPage: 10, currentPage: p-->
+            <td>{{person.id}}</td>
+            <td>{{person.name}}</td>
+            <td>{{person.address}}</td>
+            <td>{{person.city}}</td>
+            <td>{{person.pcode}}</td>
+            <td>{{person.country}}</td>
+            <td>
+              <a (click)="edit(i)" class="btn btn-sm btn-warning">
+                Edit
+              </a>
+              <a (click)="delete(i)" class="btn btn-sm btn-danger">
+                Delete
+              </a>
+              <a (click)="read(i)" class="btn btn-sm btn-info">
+                  Read
+                </a>
+
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+<!--<pagination-controls (pageCurent)="p = $event"></pagination-controls>-->
+    </div>
+    <!--zavrsuva tabela glavna-->
+    
+  </div>
+  <!--tabela za add-->
+  <div class="row">
+    <div class="col-sm-6">
+      <h4>Create Data:</h4>
+      <form class="form-horizontal">
+
+
+        <div class="form-group mb-0 pb-0">
+          <label for="name" class="control-label col-sm-2">
+       
+          </label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="name" name="name" [(ngModel)]="model.name" placeholder="Enter a New Name">
+          </div>
+        </div>
+
+        <div class="form-group mb-0 pb-0">
+          <label for="address" class="control-label col-sm-2">
+          
+          </label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="address" name="address" [(ngModel)]="model.address" placeholder="Enter a New Address">
+          </div>
+        </div>
+
+        <div class="form-group mb-0 pb-0">
+          <label for="email" class="control-label col-sm-2">
+            
+          </label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="city" name="city" [(ngModel)]="model.city" placeholder="Enter a New City">
+          </div>
+        </div>
+
+        <div class="form-group mb-0 pb-0">
+          <label for="pcode" class="control-label col-sm-2">
+            
+          </label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="pcode" name="pcode" [(ngModel)]="model.pcode" placeholder="Enter a New Pin Code">
+          </div>
+        </div>
+
+        <div class="form-group mb-0 pb-0">
+          <label for="country" class="control-label col-sm-2">
+            
+          </label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="country" name="country" [(ngModel)]="model.country" placeholder="Enter a New Country">
+          </div>
+        </div>
+
+
+        <div class="form-group mb-0 pb-0">
+          <div class="col-sm-10 col-sm-offset-2">
+            <button type="submit" class="btn btn-success mt-3" (click)="add()">
+              Save
+            </button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+    <div class="col-sm-6" [hidden]="hideUpdate">
+      <h4>Update Data:</h4>
+      <form class="form-horizontal">
+        <div class="form-group mb-0 pb-0">
+          <label for="name" class="control-label col-sm-1">
+            
+          </label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="name" name="name" [(ngModel)]="model2.name" placeholder="Enter a New Name">
+          </div>
+        </div>
+        <div class="form-group mb-0 pb-0">
+          <label for="address" class="control-label col-sm-2">
+            
+          </label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="name" name="position" [(ngModel)]="model2.position" placeholder="Enter a New Address">
+          </div>
+        </div>
+        <div class="form-group mb-0 pb-0">
+          <label for="email" class="control-label col-sm-2">
+            
+          </label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="city" name="city" [(ngModel)]="model2.email" placeholder="Enter a New City">
+          </div>
+        </div>
+        <div class="form-group mb-0 pb-0">
+          <label for="email" class="control-label col-sm-2">
+            
+          </label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="pcode" name="pcode" [(ngModel)]="model2.pcode" placeholder="Enter a New Pin Code">
+          </div>
+        </div>
+        <div class="form-group mb-0 pb-0">
+          <label for="email" class="control-label col-sm-2">
+          
+          </label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="country" name="country" [(ngModel)]="model2.country" placeholder="Enter a New Country">
+          </div>
+        </div>
+
+        
+        <div class="form-group">
+          <div class="col-sm-10 col-sm-offset-2">
+            <button type="submit" class="btn btn-success mt-3" (click)="update()">
+              Save
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!--zavrsuva tabela-->
+</div>
